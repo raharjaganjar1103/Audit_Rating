@@ -12,22 +12,34 @@ def calculate_rating(minor, major, moderate, fraud):
     if fraud:
         return "HIGH"
 
-    # 2 MAJOR: MEDIUM kalau moderate <=10, HIGH kalau >10
-    if major == 2:
-        return "HIGH" if moderate > 10 else "MEDIUM"
-
-    # 1 MAJOR: MEDIUM kalau moderate <=12, HIGH kalau >12
-    if major == 1:
-        return "HIGH" if moderate > 12 else "MEDIUM"
-
-    # 0 MAJOR:
-    # LOW: 0–7, MEDIUM: 8–15, HIGH: >15
-    if moderate > 15:
+   # HIGH
+    if (
+        (1 <= major <= 2 and moderate >= 10) or
+        (major >= 3)
+    );
         return "HIGH"
-    if moderate >= 8:
+
+    # MEDIUM
+    if (
+        (moderate > 7) or
+        (major == 0 and 8 <= moderate <= 15) or    # Kriteria 1
+        (major == 1 and moderate <= 12) or    # Kriteria 2
+        (major == 2 and moderate <= 10)    # Kriteria 3
+         ):
         return "MEDIUM"
-    return "LOW"
-        
+
+   # Kriteria LOW:
+    if (major == 0 and moderate <= 7)
+        return "LOW"
+
+ # Default case:
+    # Jaminan: kalau sudah ada temuan major >= 1, minimal MEDIUM,
+    # jadi tidak akan pernah LOW.
+    if major >= 1:
+        return "MEDIUM"
+
+  # Fallback terakhir (kalau benar-benar di luar semua rule di atas)
+    return "LOW
 # Streamlit untuk antarmuka
 st.title("Kalkulator Audit Rating")
 st.markdown('''
