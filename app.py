@@ -16,7 +16,7 @@ def calculate_rating(minor, major, moderate, fraud):
     if (
         (1 <= major <= 2 and moderate >= 10) or
         (major >= 3)
-    );
+    ):
         return "HIGH"
 
     # MEDIUM
