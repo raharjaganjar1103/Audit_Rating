@@ -39,7 +39,8 @@ def calculate_rating(minor, major, moderate, fraud):
         return "MEDIUM"
 
   # Fallback terakhir (kalau benar-benar di luar semua rule di atas)
-    return "LOW
+    return "LOW"
+    
 # Streamlit untuk antarmuka
 st.title("Kalkulator Audit Rating")
 st.markdown('''
