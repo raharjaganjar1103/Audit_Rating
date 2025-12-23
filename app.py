@@ -12,10 +12,6 @@ def calculate_rating(minor, major, moderate, fraud):
     if fraud:
         return "HIGH"
 
-    # >2 MAJOR selalu HIGH
-    if major > 2:
-        return "HIGH"
-
     # 2 MAJOR: MEDIUM kalau moderate <=10, HIGH kalau >10
     if major == 2:
         return "HIGH" if moderate > 10 else "MEDIUM"
@@ -31,7 +27,7 @@ def calculate_rating(minor, major, moderate, fraud):
     if moderate >= 8:
         return "MEDIUM"
     return "LOW"
-
+        
 # Streamlit untuk antarmuka
 st.title("Kalkulator Audit Rating")
 st.markdown('''
