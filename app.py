@@ -23,7 +23,6 @@ def calculate_rating(minor, moderate, major, fraud):
 
     # MEDIUM
     if (
-        (moderate > 7) or
         (major == 0 and 8 <= moderate <= 15) or    # Kriteria 1
         (major == 1 and moderate <= 12) or    # Kriteria 2
         (major == 2 and moderate <= 10)    # Kriteria 3
