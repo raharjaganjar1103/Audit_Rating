@@ -7,43 +7,30 @@ def muat_data_dari_github(url):
     return data
 
 # Fungsi untuk menghitung rating
-def const calculateRating = () => {
-  // FRAUD selalu HIGH
-  if (fraud) {
-    setRating("HIGH");
-    return;
-  }
+def calculate_rating(major: int, moderate: int, fraud: bool) -> str:
+    # FRAUD selalu HIGH
+    if fraud:
+        return "HIGH"
 
-  // >2 MAJOR selalu HIGH
-  if (major > 2) {
-    setRating("HIGH");
-    return;
-  }
+    # >2 MAJOR selalu HIGH
+    if major > 2:
+        return "HIGH"
 
-  // 2 MAJOR: MEDIUM kalau moderate s.d 10, HIGH kalau >10
-  if (major === 2) {
-    setRating(moderate > 10 ? "HIGH" : "MEDIUM");
-    return;
-  }
+    # 2 MAJOR: MEDIUM kalau moderate <=10, HIGH kalau >10
+    if major == 2:
+        return "HIGH" if moderate > 10 else "MEDIUM"
 
-  // 1 MAJOR: MEDIUM kalau moderate s.d 12, HIGH kalau >12
-  if (major === 1) {
-    setRating(moderate > 12 ? "HIGH" : "MEDIUM");
-    return;
-  }
+    # 1 MAJOR: MEDIUM kalau moderate <=12, HIGH kalau >12
+    if major == 1:
+        return "HIGH" if moderate > 12 else "MEDIUM"
 
-  // 0 MAJOR:
-  // LOW: moderate 0–7
-  // MEDIUM: moderate 8–15
-  // HIGH: moderate >15
-  if (moderate > 15) {
-    setRating("HIGH");
-  } else if (moderate >= 8) {
-    setRating("MEDIUM");
-  } else {
-    setRating("LOW");
-  }
-};
+    # 0 MAJOR:
+    # LOW: 0–7, MEDIUM: 8–15, HIGH: >15
+    if moderate > 15:
+        return "HIGH"
+    if moderate >= 8:
+        return "MEDIUM"
+    return "LOW"
 
 # Streamlit untuk antarmuka
 st.title("Kalkulator Audit Rating")
