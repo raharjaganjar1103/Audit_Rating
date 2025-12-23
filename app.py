@@ -15,7 +15,8 @@ def calculate_rating(minor, moderate, major, fraud):
    # HIGH
     if (
         ( major == 0 and moderate > 15) or
-        (1 <= major <= 2 and moderate >= 10) or
+        ( major == 1 and moderate > 12) or
+        ( major == 2 and moderate > 10) or
         (major >= 3)
     ):
         return "HIGH"
