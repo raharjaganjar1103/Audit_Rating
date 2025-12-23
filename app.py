@@ -7,41 +7,43 @@ def muat_data_dari_github(url):
     return data
 
 # Fungsi untuk menghitung rating
-def calculate_rating(minor, moderate, major, fraud):
-    # Jika ada fraud, langsung HIGH
-    if fraud:
-        return "HIGH"
-    
-    # Kriteria HIGH lainnya:
-    if (
-        (1 <= major <= 2 and moderate >= 12) or  # Kriteria 1
-        (major >= 3)                             # Bagian dari Kriteria 2
-    ):
-        return "HIGH"
-    
-    # Kriteria MEDIUM:
-    if (
-        (moderate >= 8) or
-        (major == 0 and 8 <= moderate <= 15) or    # Kriteria 1
-        (major == 1 and 8 <= moderate <= 12) or    # Kriteria 2
-        (major == 2 and 8 <= moderate <= 10) or    # Kriteria 3
-        (major == 2 and moderate < 8) or
-        (major == 1 and moderate < 8)
-    ):
-        return "MEDIUM"
-    
-    # Kriteria LOW:
-    if major == 0 and moderate <= 7:
-        return "LOW"
-    
-    # Default case:
-    # Jaminan: kalau sudah ada temuan major >= 1, minimal MEDIUM,
-    # jadi tidak akan pernah LOW.
-    if major >= 1:
-        return "MEDIUM"
-    
-    # Fallback terakhir (kalau benar-benar di luar semua rule di atas)
-    return "LOW"
+def const calculateRating = () => {
+  // FRAUD selalu HIGH
+  if (fraud) {
+    setRating("HIGH");
+    return;
+  }
+
+  // >2 MAJOR selalu HIGH
+  if (major > 2) {
+    setRating("HIGH");
+    return;
+  }
+
+  // 2 MAJOR: MEDIUM kalau moderate s.d 10, HIGH kalau >10
+  if (major === 2) {
+    setRating(moderate > 10 ? "HIGH" : "MEDIUM");
+    return;
+  }
+
+  // 1 MAJOR: MEDIUM kalau moderate s.d 12, HIGH kalau >12
+  if (major === 1) {
+    setRating(moderate > 12 ? "HIGH" : "MEDIUM");
+    return;
+  }
+
+  // 0 MAJOR:
+  // LOW: moderate 0–7
+  // MEDIUM: moderate 8–15
+  // HIGH: moderate >15
+  if (moderate > 15) {
+    setRating("HIGH");
+  } else if (moderate >= 8) {
+    setRating("MEDIUM");
+  } else {
+    setRating("LOW");
+  }
+};
 
 # Streamlit untuk antarmuka
 st.title("Kalkulator Audit Rating")
