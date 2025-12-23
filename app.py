@@ -29,7 +29,7 @@ def calculate_rating(minor, major, moderate, fraud):
         return "MEDIUM"
 
    # Kriteria LOW:
-    if (major == 0 and moderate <= 7)
+    if (major == 0 and moderate <= 7):
         return "LOW"
 
  # Default case:
